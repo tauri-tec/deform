@@ -1,0 +1,87 @@
+<div tal:define="
+     name name|field.name;
+     style field.widget.style;
+     oid oid|field.oid;
+     css_class css_class|field.widget.css_class;
+     optgroup_class optgroup_class|field.widget.optgroup_class;
+     multiple multiple|field.widget.multiple;"
+     tal:omit-tag="">
+
+   <style>
+    .form-control .select2-choice {
+        border: 0;
+        border-radius: 2px;
+    }
+
+    .form-control .select2-choice .select2-arrow {
+        border-radius: 0 2px 2px 0;   
+    }
+
+    .form-control.select2-container {
+        height: auto !important;
+        padding: 0px;
+    }
+
+    .form-control.select2-container.select2-dropdown-open {
+        border-color: #5897FB;
+        border-radius: 3px 3px 0 0;
+    }
+
+    .form-control .select2-container.select2-dropdown-open .select2-choices {
+        border-radius: 3px 3px 0 0;
+    }
+
+    .form-control.select2-container .select2-choices {
+        border: 0 !important;
+        border-radius: 3px;
+    }
+   </style>
+  <input type="hidden" name="__start__" value="${name}:sequence"
+         tal:condition="multiple" />
+
+  <input tal:attributes="
+          name name;
+          id oid;
+          class string: form-control ${css_class};
+          data-placeholder field.widget.placeholder|None;
+          multiple multiple;
+          style style;">
+
+  </input>
+
+  <script type="text/javascript">
+       selected_values = ${cstruct};
+   deform.addCallback(
+     '${field.oid}',
+     function(oid) {
+        s2 = $('#' + oid).select2({
+           containerCssClass: 'form-control',
+           multiple: true,
+           ajax: {
+               url: "${route_url}",
+               dataType:'json',
+               data: function(term, page) {
+                   return {
+                       term:term,
+                       page:page
+                   };
+               },
+               results: function(data, page){
+                   console.log(data);
+                   console.log(page);
+                   return {results:data};
+
+               }
+           }
+
+       });
+         s2.data().select2.updateSelection(selected_values);
+       //s2.updateSelection(selected_values);
+     }
+   );
+  </script>
+
+  <input type="hidden" name="__end__" value="${name}:sequence"
+         tal:condition="multiple" />
+</div>
+

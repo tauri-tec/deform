@@ -1088,7 +1088,26 @@ class SelectWidget(Widget):
 class Select2Widget(SelectWidget):
     template = 'select2'
     requirements = (('deform', None), ('select2', None))
-    
+
+
+
+class Select2AutocompleteWidget(Select2Widget):
+    """
+    URL should return a json array with objects like:
+    [{'id':123, 'text':'the description'}]
+    """
+    template = 'select2ajax'
+    url = 'please_set_url'
+    def serialize(self, field, cstruct, **kw):
+        if cstruct:
+            if hasattr(cstruct[0], 'get'):
+                if hasattr(s, 'text'):
+                    cstruct = [{'id': s['id'], 'text':s.text.encode('utf-8')} for s in cstruct]
+        kw['route_url'] = self.url
+        return super(Select2AutocompleteWidget, self).serialize(field, cstruct, **kw)
+
+
+
 class RadioChoiceWidget(SelectWidget):
     """
     Renders a sequence of ``<input type="radio"/>`` buttons based on a
