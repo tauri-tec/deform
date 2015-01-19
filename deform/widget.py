@@ -1101,8 +1101,10 @@ class Select2AutocompleteWidget(Select2Widget):
     def serialize(self, field, cstruct, **kw):
         if cstruct:
             if hasattr(cstruct[0], 'get'):
-                if hasattr(s, 'text'):
-                    cstruct = [{'id': s['id'], 'text':s.text.encode('utf-8')} for s in cstruct]
+                if cstruct[0].get('text'):
+                    cstruct = [{'id': s['id'], 'text':s['text'].encode('utf-8')} for s in cstruct]
+                else:
+                    cstruct = [{'id': s['id'], 'text':str(s)} for s in cstruct]
         kw['route_url'] = self.url
         return super(Select2AutocompleteWidget, self).serialize(field, cstruct, **kw)
 
