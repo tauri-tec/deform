@@ -49,37 +49,42 @@
 
   </input>
 
+        cstruct is: ${type(cstruct)}
+
+
   <script type="text/javascript">
-       selected_values = ${cstruct if cstruct != '' else 'false'};
-   deform.addCallback(
-     '${field.oid}',
-     function(oid) {
-        s2 = $('#' + oid).select2({
-           containerCssClass: 'form-control',
-           multiple: true,
-           ajax: {
-               url: "${route_url}",
-               dataType:'json',
-               data: function(term, page) {
-                   return {
-                       term:term,
-                       page:page
-                   };
-               },
-               results: function(data, page){
-                   console.log(data);
-                   console.log(page);
-                   return {results:data};
+      (function(){
+          var selected_values = ${cstruct if cstruct != '' else 'false'};
+          deform.addCallback(
+             '${field.oid}',
+             function(oid) {
+                var s2 = $('#' + oid).select2({
+                   containerCssClass: 'form-control',
+                   multiple: true,
+                   ajax: {
+                       url: "${route_url}",
+                       dataType:'json',
+                       data: function(term, page) {
+                           return {
+                               term:term,
+                               page:page
+                           };
+                       },
+                       results: function(data, page){
+                           console.log(data);
+                           console.log(page);
+                           return {results:data};
 
-               }
-           }
+                       }
+                   }
 
-           });
-        if(selected_values){
-            s2.data().select2.updateSelection(selected_values);
-        }
-     }
-   );
+                   });
+                if(selected_values){
+                    s2.data().select2.updateSelection(selected_values);
+                }
+             }
+          );
+      })();
   </script>
 
   <input type="hidden" name="__end__" value="${name}:sequence"

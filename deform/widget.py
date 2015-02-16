@@ -1099,6 +1099,7 @@ class Select2AutocompleteWidget(Select2Widget):
     template = 'select2ajax'
     url = 'please_set_url'
     def serialize(self, field, cstruct, **kw):
+        print 'SEL2AUTO %s  %s ' % (field, cstruct)
         if cstruct:
             if hasattr(cstruct[0], 'get'):
                 if cstruct[0].get('text'):
@@ -1107,6 +1108,22 @@ class Select2AutocompleteWidget(Select2Widget):
                     cstruct = [{'id': s['id'], 'text':str(s)} for s in cstruct]
         kw['route_url'] = self.url
         return super(Select2AutocompleteWidget, self).serialize(field, cstruct, **kw)
+    def deserialize(self, field, pstruct):
+        print 'SEL2AUTO %s  %s ' % (field, pstruct)
+
+        if pstruct in (null, self.null_value):
+            return null
+        if self.multiple:
+            if pstruct[0] == '':
+                return []
+            try:
+                return pstruct[0].split(',')
+            except Invalid as exc:
+                raise Invalid(field.schema, "Invalid pstruct: %s" % exc)
+        else:
+            if not isinstance(pstruct, string_types):
+                raise Invalid(field.schema, "Pstruct is not a string")
+            return pstruct
 
 
 
@@ -1715,6 +1732,9 @@ class FileUploadWidget(Widget):
 
         return data
 
+class JQueryFileUploadWidget(FileUploadWidget):
+    template = 'jquery_file_upload'
+    readonly_template = 'readonly/file_upload'
 
 class DatePartsWidget(Widget):
     """
