@@ -1,0 +1,3 @@
+<p class="form-control-static" id="${oid|field.oid}">
+  <span tal:replace="structure: cstruct.replace('\n','<br/>')"/>
+</p>

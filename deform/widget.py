@@ -751,7 +751,7 @@ class TextAreaWidget(TextInputWidget):
         and trailing whitespace (default ``True``).
     """
     template = 'textarea'
-    readonly_template = 'readonly/textinput'
+    readonly_template = 'readonly/textarea'
     cols = None
     rows = None
     strip = True
