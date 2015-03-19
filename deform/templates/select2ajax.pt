@@ -49,8 +49,7 @@
 
   </input>
 
-        cstruct is: ${type(cstruct)}
-
+        <!--?cstruct is: ${type(cstruct)}-->
 
   <script type="text/javascript">
       (function(){
