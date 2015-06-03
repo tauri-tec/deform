@@ -1095,12 +1095,26 @@ class Select2AutocompleteWidget(Select2Widget):
     """
     URL should return a json array with objects like:
     [{'id':123, 'text':'the description'}]
+
+    Usage: Select2AutocompleteWidet(
+                multiple=True,
+                url='/my/json/endpoint',
+                query=model.DBSession.query(model.User)
+                )
+    :param
+    multiple: True or False
+    url:    /my/json/endpoint
+    query:  The start of the sql query eg model.DBSession.query(model.User)
     """
     template = 'select2ajax'
     url = 'please_set_url'
+    query = 'set SQLA query for cases where validation has failed.'
+
     def serialize(self, field, cstruct, **kw):
         print 'SEL2AUTO - Serialize %s  CSTRUCT: %s  KW: %s' % (field, cstruct, kw)
         if cstruct:
+            if not hasattr(cstruct[0], 'get') and cstruct[0] != '':
+                cstruct = [x.appstruct for x in self.query.filter('id in (%s)' % ', '.join(cstruct)).all()]
             if hasattr(cstruct[0], 'get'):
                 if cstruct[0].get('text'):
                     cstruct = [{'id': s['id'], 'text':s['text'].encode('utf-8')} for s in cstruct]
@@ -1116,7 +1130,8 @@ class Select2AutocompleteWidget(Select2Widget):
             if pstruct[0] == '':
                 return []
             try:
-                return str(pstruct[0]).split(',')
+                return str(pstruct[0]).split(',') #[{'id':str(x), 'text':str(x)} for x in pstruct[0].split(',')]
+
             except Invalid as exc:
                 raise Invalid(field.schema, "Invalid pstruct: %s" % exc)
         else:
