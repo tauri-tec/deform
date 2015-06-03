@@ -70,8 +70,8 @@
                            };
                        },
                        results: function(data, page){
-                           console.log(data);
-                           console.log(page);
+                           //console.log(data);
+                           //console.log(page);
                            return {results:data};
 
                        }
