@@ -1101,6 +1101,9 @@ class Select2AutocompleteWidget(Select2Widget):
                 url='/my/json/endpoint',
                 query=model.DBSession.query(model.User)
                 )
+
+    This function expects the appstruct to contain a 'text' field, which you would specify in your sqla model
+    to represent the string.  You can also use the __str__ function as that will work in the absence of the former.
     :param
     multiple: True or False
     url:    /my/json/endpoint
