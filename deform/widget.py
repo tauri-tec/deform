@@ -1344,7 +1344,7 @@ class CheckedPasswordWidget(CheckedInputWidget):
     mismatch_message
         The string shown in the error message when a validation failure is
         caused by the confirm field value does not match the password
-        field value.  Default: ``Password did not match confirm``.
+        field value.  Default: ``Password did not match``.
         
     redisplay
         If true, on validation failure involving a field with this widget,
@@ -1354,7 +1354,7 @@ class CheckedPasswordWidget(CheckedInputWidget):
         """
     template = 'checked_password'
     readonly_template = 'readonly/checked_password'
-    mismatch_message = _('Password did not match confirm')
+    mismatch_message = _('Password did not match')
     redisplay = False
 
 class MappingWidget(Widget):
