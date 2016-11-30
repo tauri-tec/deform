@@ -53,7 +53,7 @@
 
   <script type="text/javascript">
       (function(){
-          var selected_values = ${cstruct if cstruct != '' else 'false'};
+          var selected_values = ${cstruct if cstruct != '' and len(cstruct) > 0 else 'false'};
           deform.addCallback(
              '${field.oid}',
              function(oid) {
@@ -78,7 +78,9 @@
                    }
                 });
                 if(selected_values){
-                    s2.data().select2.updateSelection(selected_values);
+                    s2.data().select2.updateSelection(
+                        selected_values${'' if multiple else '[0]'}
+                    );
                 }
              }
           );
