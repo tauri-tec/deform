@@ -59,7 +59,7 @@
              function(oid) {
                 var s2 = $('#' + oid).select2({
                    containerCssClass: 'form-control',
-                   multiple: true,
+                   multiple: ${'true' if multiple else 'false'},
                    ajax: {
                        url: "${route_url}",
                        dataType:'json',
