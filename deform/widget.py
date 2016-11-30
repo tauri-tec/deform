@@ -1114,10 +1114,13 @@ class Select2AutocompleteWidget(Select2Widget):
     query = 'set SQLA query for cases where validation has failed.'
 
     def serialize(self, field, cstruct, **kw):
-        print 'SEL2AUTO - Serialize %s  CSTRUCT: %s  KW: %s' % (field, cstruct, kw)
         if cstruct:
-            if not hasattr(cstruct[0], 'get') and cstruct[0] != '':
+            if not self.multiple:
+                cstruct =[x.appstruct for x in self.query.filter('id in (%s)'%cstruct).all()]
+
+            elif not hasattr(cstruct[0], 'get') and cstruct[0] != '':
                 cstruct = [x.appstruct for x in self.query.filter('id in (%s)' % ', '.join(cstruct)).all()]
+
             if hasattr(cstruct[0], 'get'):
                 if cstruct[0].get('text'):
                     cstruct = [{'id': s['id'], 'text':s['text'].encode('utf-8')} for s in cstruct]
@@ -1125,6 +1128,7 @@ class Select2AutocompleteWidget(Select2Widget):
                     cstruct = [{'id': s['id'], 'text':str(s)} for s in cstruct]
         kw['route_url'] = self.url
         return super(Select2AutocompleteWidget, self).serialize(field, cstruct, **kw)
+
     def deserialize(self, field, pstruct):
         print 'SEL2AUTO - deserialise %s  %s ' % (field, pstruct)
         if pstruct in (null, self.null_value):

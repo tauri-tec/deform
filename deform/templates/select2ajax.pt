@@ -76,8 +76,7 @@
 
                        }
                    }
-
-                   });
+                });
                 if(selected_values){
                     s2.data().select2.updateSelection(selected_values);
                 }
