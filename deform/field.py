@@ -146,8 +146,17 @@ class Field(object):
     default_resource_registry = widget.default_resource_registry
 
     def __init__(self, schema, renderer=None, counter=None,
-                 resource_registry=None, appstruct=colander.null,
-                 parent=None, **kw):
+                 debug_counter=None, resource_registry=None,
+                 appstruct=colander.null, parent=None, **kw):
+
+        # The following allow for a data-debug tag to be added to the
+        # field if required.  This will help with the selection of
+        # inputs when Selenium needs to select stuff, after Ilja's mods
+        # are applied.
+        self.enabled_debug = kw.get('enable_debug_id', False)
+        self.debug_counter = debug_counter or itertools.count()
+        self.debug_id = 'field{}'.format(next(self.debug_counter))
+
         self.counter = counter or itertools.count()
         self.order = next(self.counter)
         self.oid = getattr(schema, 'oid', 'deformField%s' % self.order)
@@ -174,6 +183,7 @@ class Field(object):
                     child,
                     renderer=renderer,
                     counter=self.counter,
+                    debug_counter=self.debug_counter,
                     resource_registry=resource_registry,
                     parent=self,
                     **kw

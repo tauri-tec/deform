@@ -1,7 +1,9 @@
 <div tal:define="oid oid|field.oid;
                  css_class css_class|field.widget.css_class;
                  style style|field.widget.style;
-                 inline getattr(field.widget, 'inline', False);"
+                 inline getattr(field.widget, 'inline', False);
+                 debug_id debug_id|field.debug_id|'';
+                 debug_id debug_id|field.debug_id|'';"
      tal:omit-tag="not inline">
   ${field.start_rename()}
   <div tal:repeat="choice values | field.widget.values"
@@ -12,7 +14,8 @@
            tal:attributes="class inline and 'radio-inline'">
       <input tal:attributes="checked value == cstruct;
                              class css_class;
-                             style style;"
+                             style style;
+                             data-debug-id '{}-[}'.format(debug_id, repeat.choice.index) if field.enabled_debug else None;"
              type="radio"
              name="${oid}"
              value="${value}"
