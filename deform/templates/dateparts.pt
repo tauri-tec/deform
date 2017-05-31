@@ -21,7 +21,7 @@
       <input type="text" name="month" value="${month}"
              class="span2 form-control ${css_class or ''}"
              tal:attributes="style style;
-                             data-debug-id ${'{}-month'.format(debug_id)} if field.enabled_debug else None;"
+                             data-debug-id '{}-month'.format(debug_id) if field.enabled_debug else None;"
              maxlength="2"
              id="${oid}-month"/>
     </div>
@@ -30,7 +30,7 @@
       <input type="text" name="day" value="${day}"
              class="span2 form-control ${css_class or ''}"
              tal:attributes="style style;
-                             data-debug-id ${'{}-day'.format(debug_id)} if field.enabled_debug else None;"
+                             data-debug-id '{}-day'.format(debug_id) if field.enabled_debug else None;"
              maxlength="2"
              id="${oid}-day"/>
     </div>

@@ -21,7 +21,7 @@
            tal:attributes="class string: form-control ${css_class or ''};
                            style style;
                            placeholder confirm_subject;
-                           data-debug-id ${'{}-confirm'.format(debug_id)} if field.enabled_debug else None;"
+                           data-debug-id '{}-confirm'.format(debug_id) if field.enabled_debug else None;"
            id="${oid}-confirm"/>
   </div>
   <script tal:condition="field.widget.mask" type="text/javascript">

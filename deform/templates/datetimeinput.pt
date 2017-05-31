@@ -11,7 +11,7 @@
       <input type="text" name="date" value="${date}"
              class="span2 form-control ${css_class or ''} hasDatepicker"
              tal:attributes="style style;
-                             data-debug-id ${'{}-date'.foramt(debug_id)} if field.enabled_debug else None;"
+                             data-debug-id '{}-date'.foramt(debug_id) if field.enabled_debug else None;"
              id="${oid}-date"/>
     </div>
     <div class="input-group col-xs-6">
@@ -19,7 +19,7 @@
       <input type="text" name="time" value="${time}"
              class="span2 form-control ${css_class or ''} hasDatepicker"
              tal:attributes="style style;
-                             data-debug-id ${'{}-time'.format(debug_id)} if field.enabled_debug else None;"
+                             data-debug-id '{}-time'.format(debug_id) if field.enabled_debug else None;"
              id="${oid}-time"/>
     </div>
   </div>
