@@ -183,6 +183,7 @@ class Field(object):
                     child,
                     renderer=renderer,
                     counter=self.counter,
+                    debug_counter=debug_counter,
                     resource_registry=resource_registry,
                     parent=self,
                     **kw
