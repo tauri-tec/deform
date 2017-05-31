@@ -3,10 +3,12 @@
                       css_class css_class|field.widget.css_class;
                       oid oid|field.oid;
                       name name|field.name;
-                      style style|field.widget.style"
+                      style style|field.widget.style;
+                      debug_id debug_id|field.debug_id|'';"
           tal:attributes="rows rows;
                           cols cols;
                           class string: form-control ${css_class or ''};
-                          style style"
+                          style style;
+                          data-debug-id debug_id if field.enabled_debug else None;"
           id="${oid}"
           name="${name}">${cstruct}</textarea>

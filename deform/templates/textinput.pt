@@ -4,11 +4,12 @@
                   mask mask|field.widget.mask;
                   mask_placeholder mask_placeholder|field.widget.mask_placeholder;
                   style style|field.widget.style;
-"
+                  debug_id debug_id|field.debug_id|'';"
       tal:omit-tag="">
     <input type="text" name="${name}" value="${cstruct}" 
            tal:attributes="class string: form-control ${css_class or ''};
-                           style style"
+                           style style;
+                           data-debug-id debug_id if field.enabled_debug else None;"
            id="${oid}"/>
     <script tal:condition="mask" type="text/javascript">
       deform.addCallback(

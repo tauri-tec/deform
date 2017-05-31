@@ -1,7 +1,8 @@
 <div tal:define="css_class css_class|field.widget.css_class;
                  style style|field.widget.style;
                  oid oid|field.oid;
-                 inline getattr(field.widget, 'inline', False)"
+                 inline getattr(field.widget, 'inline', False);
+                 debug_id debug_id|field.debug_id|'';"
      tal:omit-tag="not inline">
   ${field.start_sequence()}
   <div tal:repeat="choice values | field.widget.values"
