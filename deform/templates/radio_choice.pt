@@ -15,7 +15,7 @@
       <input tal:attributes="checked value == cstruct;
                              class css_class;
                              style style;
-                             data-debug-id debug_id if field.enabled_debug else None;"
+                             data-debug-id '{}-[}'.format(debug_id, repeat.choice.index) if field.enabled_debug else None;"
              type="radio"
              name="${oid}"
              value="${value}"

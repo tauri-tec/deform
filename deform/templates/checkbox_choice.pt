@@ -13,7 +13,8 @@
            tal:attributes="class inline and 'checkbox-inline'">
       <input tal:attributes="checked value in cstruct;
                              class css_class;
-                             style style"
+                             style style;
+                             data-debug-id '{}-{}'.format(debug_id, repeat.choice.index) if field.enabled_debug else None;"
              type="checkbox"
              name="checkbox"
              value="${value}"
