@@ -8,7 +8,7 @@
       tal:omit-tag="">
     <input type="text" name="${name}" value="${cstruct}"
            tal:attributes="style style;
-                           class string: form-control ${css_class or ''}
+                           class string: form-control ${css_class or ''};
                            data-debug-id debug_id if field.enabled_debug else None;"
            id="${oid}"/>
     <script type="text/javascript">
